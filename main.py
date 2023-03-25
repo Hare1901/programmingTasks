@@ -67,3 +67,28 @@ def move_zeros(lst):
     """
     a = [i for i in lst if i!=0]
     return a + [0] * (len(lst) - len(a))
+
+class Solution(object):
+    """
+                            LeetCode
+                            Name: 2444. Count Subarrays With Fixed Bounds
+                            lvl: Hard
+    """
+    def countSubarrays(self, nums, minK, maxK):
+        """
+        :type nums: List[int]
+        :type minK: int
+        :type maxK: int
+        :rtype: int
+        """
+        j1 = j2 = k = -1
+        ans = 0
+        for i, v in enumerate(nums):
+            if v < minK or v > maxK:
+                k = i
+            if v == minK:
+                j1 = i
+            if v == maxK:
+                j2 = i
+            ans += max(0, min(j1, j2) - k)
+        return ans
