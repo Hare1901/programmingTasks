@@ -110,3 +110,29 @@ class Solution:
             for i in range(1, len(nums)-1):
                 if nums[i] > nums[i-1] and nums[i] > nums[i+1]:
                     return i
+
+
+class Solution(object):
+    """
+                                    LeenCode
+                                    Name: 443. String Compression
+                                    lvl: medium
+    """
+    def compress(self, chars):
+        """
+        :type chars: List[str]
+        :rtype: int
+        """
+        r, w_char, w_pos = 0, 0, 0
+
+        for r in range(len(chars)):
+            if r == len(chars) - 1 or chars[r] != chars[r + 1]:
+                s = chars[w_char] + (str(r - w_char + 1) if r > w_char else "")
+
+                for ch in s:
+                    chars[w_pos] = ch
+                    w_pos += 1
+
+                w_char = r + 1
+
+        return w_pos
