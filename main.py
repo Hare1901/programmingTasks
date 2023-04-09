@@ -136,3 +136,22 @@ class Solution(object):
                 w_char = r + 1
 
         return w_pos
+
+def next_bigger(n):
+    """
+                                    Codewars
+                                    Name: Next bigger number with the same digits
+                                    lvl: 4 kyu
+
+    :param n: int
+    :return: new int or -1
+    """
+    s1 = list(str(n)[::-1])
+    for i in range(len(s1)-1):
+        if s1[i] > s1[i+1]:
+            s3 = s1[:i+2]
+            a = min([j for j in s3 if j > s1[i+1]])
+            s3.remove(a)
+            s1[:i+2] = sorted(s3, reverse=True) + [a]
+            return int(''.join(s1[::-1]))
+    return -1
