@@ -1,0 +1,41 @@
+DESCRIPTION:
+Create a function that takes a positive integer and returns the next bigger number that can be formed by rearranging its digits. For example:
+
+  12 ==> 21
+ 513 ==> 531
+2017 ==> 2071
+If the digits can't be rearranged to form a bigger number, return -1 (or nil in Swift, None in Rust):
+
+  9 ==> -1
+111 ==> -1
+531 ==> -1
+
+
+Моё решение:
+
+def next_bigger(n):
+    s1 = list(str(n)[::-1])
+    for i in range(len(s1)-1):
+        if s1[i] > s1[i+1]:
+            s3 = s1[:i+2]
+            a = min([j for j in s3 if j > s1[i+1]])
+            s3.remove(a)
+            s1[:i+2] = sorted(s3, reverse=True) + [a]
+            return int(''.join(s1[::-1]))
+    return -1
+
+
+Лучшее решение:
+
+import itertools
+def next_bigger(n):
+    s = list(str(n))
+    for i in range(len(s)-2,-1,-1):
+        if s[i] < s[i+1]:
+            t = s[i:]
+            m = min(filter(lambda x: x>t[0], t))
+            t.remove(m)
+            t.sort()
+            s[i:] = [m] + t
+            return int("".join(s))
+    return -1
